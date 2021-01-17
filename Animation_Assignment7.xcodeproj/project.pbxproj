@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E58955025B17C4A004F5119 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E58954F25B17C4A004F5119 /* AnimationViewController.swift */; };
 		2E80CDA725B0E27B0033BAB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80CDA625B0E27B0033BAB2 /* AppDelegate.swift */; };
 		2E80CDA925B0E27B0033BAB2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80CDA825B0E27B0033BAB2 /* SceneDelegate.swift */; };
 		2E80CDAB25B0E27B0033BAB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80CDAA25B0E27B0033BAB2 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E58954F25B17C4A004F5119 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		2E80CDA325B0E27B0033BAB2 /* Animation_Assignment7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animation_Assignment7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E80CDA625B0E27B0033BAB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E80CDA825B0E27B0033BAB2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				2E80CDA625B0E27B0033BAB2 /* AppDelegate.swift */,
 				2E80CDA825B0E27B0033BAB2 /* SceneDelegate.swift */,
+				2E58954F25B17C4A004F5119 /* AnimationViewController.swift */,
 				2E80CDAA25B0E27B0033BAB2 /* ViewController.swift */,
 				2E80CDAC25B0E27B0033BAB2 /* Main.storyboard */,
 				2E80CDAF25B0E2810033BAB2 /* Assets.xcassets */,
@@ -140,6 +143,7 @@
 				2E80CDAB25B0E27B0033BAB2 /* ViewController.swift in Sources */,
 				2E80CDA725B0E27B0033BAB2 /* AppDelegate.swift in Sources */,
 				2E80CDA925B0E27B0033BAB2 /* SceneDelegate.swift in Sources */,
+				2E58955025B17C4A004F5119 /* AnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
