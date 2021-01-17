@@ -37,6 +37,11 @@ class AnimationViewController: UIViewController {
         sv.axis = .horizontal
         return sv
     }()
+    let tableView: UITableView = {
+            let tv = UITableView()
+            tv.translatesAutoresizingMaskIntoConstraints = false
+            return tv
+        }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +66,11 @@ class AnimationViewController: UIViewController {
         plusBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5).isActive = true
         plusBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         
-        navStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        navStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        navStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-        navStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        navStackView.topAnchor.constraint(equalTo: navBar.topAnchor).isActive = true
+        navStackView.bottomAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
+        navStackView.leftAnchor.constraint(equalTo: navBar.leftAnchor).isActive = true
+        navStackView.widthAnchor.constraint(equalTo: navBar.widthAnchor).isActive = true
+        navStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         navStackView.addArrangedSubview(ivOne)
         navStackView.addArrangedSubview(ivTwo)
@@ -76,18 +82,18 @@ class AnimationViewController: UIViewController {
     func animation() {
         if !navBarStatus {
             UIView.animate(withDuration: 1.5) {
+                self.navStackView.isHidden = false
                 let scaleTransform = CGAffineTransform(scaleX: 1.0, y: 3.5)
                 self.navBar.transform = scaleTransform
                 _ = CGAffineTransform(translationX: self.view.frame.size.width / 2 - 50, y: self.view.frame.size.height / 2 - 50)
                 self.plusBtn.transform = CGAffineTransform(rotationAngle: .pi/4)
-                self.navStackView.isHidden = false
             }
             navBarStatus = true
         } else {
+            self.navStackView.isHidden = true
             UIView.animate(withDuration: 1.5){
                 self.navBar.transform = .identity
                 self.plusBtn.transform = .identity
-                self.navStackView.isHidden = true
             }
             navBarStatus = false
         }
