@@ -9,12 +9,7 @@ import UIKit
 
 class AnimationViewController: UIViewController {
 
-    var navBarStatus = false
-    let ivOne = UIImageView(image: UIImage(named: "oreos"))
-    let ivTwo = UIImageView(image: UIImage(named: "pizza_pockets"))
-    let ivThree = UIImageView(image: UIImage(named: "pop_tarts"))
-    let ivFour = UIImageView(image: UIImage(named: "popsicle"))
-    let ivFive = UIImageView(image: UIImage(named: "ramen"))
+//    var navBarStatus = false
     
     let navBar: UIView = {
         let view = UIView()
@@ -41,12 +36,17 @@ class AnimationViewController: UIViewController {
             let tv = UITableView()
             tv.translatesAutoresizingMaskIntoConstraints = false
             return tv
-        }()
+    }()
+    
+    let selectedImage = ["Oreos", "Pizza Pockets", "Pop Tarts", "Popsicle", "Ramen"]
+    var items = [String]()
+    let cellId = "Cells"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        view.addSubview(tableView)
         view.addSubview(navBar)
         view.addSubview(plusBtn)
         
@@ -54,10 +54,16 @@ class AnimationViewController: UIViewController {
         navBar.addSubview(navStackView)
         
         setView()
+        setStackView()
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
+        tableView.delegate = self
         
     }
-    
+
     func setView(){
+
         navBar.heightAnchor.constraint(equalToConstant: 88).isActive = true
         navBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         navBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
@@ -72,6 +78,25 @@ class AnimationViewController: UIViewController {
         navStackView.widthAnchor.constraint(equalTo: navBar.widthAnchor).isActive = true
         navStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
+        tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+    }
+    
+    func setStackView() {
+        let ivOne = UIImageView(image: UIImage(named: "oreos"))
+        let ivTwo = UIImageView(image: UIImage(named: "pizza_pockets"))
+        let ivThree = UIImageView(image: UIImage(named: "pop_tarts"))
+        let ivFour = UIImageView(image: UIImage(named: "popsicle"))
+        let ivFive = UIImageView(image: UIImage(named: "ramen"))
+        let imageViews = [ivOne, ivTwo, ivThree, ivFour, ivFive]
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        
+        imageViews[0].isUserInteractionEnabled = true
+        imageViews[0].addGestureRecognizer(tapGestureRecognizer)
+        
         navStackView.addArrangedSubview(ivOne)
         navStackView.addArrangedSubview(ivTwo)
         navStackView.addArrangedSubview(ivThree)
@@ -79,8 +104,18 @@ class AnimationViewController: UIViewController {
         navStackView.addArrangedSubview(ivFive)
     }
     
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        print("image tapped")
+        if let i = tapGestureRecognizer.view?.tag {
+            items.append(selectedImage[i])
+            let indexPath = IndexPath(row: items.count - 1, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     func animation() {
-        if !navBarStatus {
+        if navStackView.isHidden {
             UIView.animate(withDuration: 1.5) {
                 self.navStackView.isHidden = false
                 let scaleTransform = CGAffineTransform(scaleX: 1.0, y: 3.5)
@@ -88,14 +123,14 @@ class AnimationViewController: UIViewController {
                 _ = CGAffineTransform(translationX: self.view.frame.size.width / 2 - 50, y: self.view.frame.size.height / 2 - 50)
                 self.plusBtn.transform = CGAffineTransform(rotationAngle: .pi/4)
             }
-            navBarStatus = true
+//            navBarStatus = true
         } else {
             self.navStackView.isHidden = true
             UIView.animate(withDuration: 1.5){
                 self.navBar.transform = .identity
                 self.plusBtn.transform = .identity
             }
-            navBarStatus = false
+//            navBarStatus = false
         }
     }
     
@@ -103,20 +138,23 @@ class AnimationViewController: UIViewController {
         print("plus icon pressed")
         animation()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
+extension AnimationViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        cell.textLabel?.text = items[indexPath.row]
+        return cell
+    }
+}
 
 extension UIColor {
    convenience init(red: Int, green: Int, blue: Int) {
@@ -135,3 +173,4 @@ extension UIColor {
        )
    }
 }
+
