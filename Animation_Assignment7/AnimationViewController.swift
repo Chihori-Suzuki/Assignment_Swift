@@ -92,16 +92,14 @@ class AnimationViewController: UIViewController {
         let ivFive = UIImageView(image: UIImage(named: "ramen"))
         let imageViews = [ivOne, ivTwo, ivThree, ivFour, ivFive]
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        
-        imageViews[0].isUserInteractionEnabled = true
-        imageViews[0].addGestureRecognizer(tapGestureRecognizer)
-        
-        navStackView.addArrangedSubview(ivOne)
-        navStackView.addArrangedSubview(ivTwo)
-        navStackView.addArrangedSubview(ivThree)
-        navStackView.addArrangedSubview(ivFour)
-        navStackView.addArrangedSubview(ivFive)
+        for i in 0..<imageViews.count {
+            imageViews[i].isUserInteractionEnabled = true
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+            imageViews[i].addGestureRecognizer(tapGestureRecognizer)
+            imageViews[i].tag = i
+            navStackView.addArrangedSubview(imageViews[i])
+        }
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -116,21 +114,25 @@ class AnimationViewController: UIViewController {
     
     func animation() {
         if navStackView.isHidden {
-            UIView.animate(withDuration: 1.5) {
+            UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.1, initialSpringVelocity: 2, options: .curveEaseInOut, animations: {
                 self.navStackView.isHidden = false
                 let scaleTransform = CGAffineTransform(scaleX: 1.0, y: 3.5)
                 self.navBar.transform = scaleTransform
                 _ = CGAffineTransform(translationX: self.view.frame.size.width / 2 - 50, y: self.view.frame.size.height / 2 - 50)
                 self.plusBtn.transform = CGAffineTransform(rotationAngle: .pi/4)
-            }
+                self.view.layoutIfNeeded()
+                self.tableView.contentInset = UIEdgeInsets(top: self.navBar.bounds.height + 15, left: 0, bottom: 0, right: 0)
+            }, completion: nil)
 //            navBarStatus = true
         } else {
             self.navStackView.isHidden = true
-            UIView.animate(withDuration: 1.5){
+            UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.1, initialSpringVelocity: 2, options: .curveEaseInOut, animations: {
                 self.navBar.transform = .identity
                 self.plusBtn.transform = .identity
-            }
-//            navBarStatus = false
+                self.view.layoutIfNeeded()
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }, completion: nil)
+            
         }
     }
     
