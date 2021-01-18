@@ -33,9 +33,17 @@ class AnimationViewController: UIViewController {
         return sv
     }()
     let tableView: UITableView = {
-            let tv = UITableView()
-            tv.translatesAutoresizingMaskIntoConstraints = false
-            return tv
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+    let snacksLabel: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.text = "SNACKS"
+        lb.font = .systemFont(ofSize: 18, weight: .bold)
+        return lb
     }()
     
     let selectedImage = ["Oreos", "Pizza Pockets", "Pop Tarts", "Popsicle", "Ramen"]
@@ -50,6 +58,7 @@ class AnimationViewController: UIViewController {
         view.addSubview(navBar)
         view.addSubview(plusBtn)
         
+        view.addSubview(snacksLabel)
         navStackView.isHidden = true
         navBar.addSubview(navStackView)
         
@@ -72,16 +81,20 @@ class AnimationViewController: UIViewController {
         plusBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5).isActive = true
         plusBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         
-//        navStackView.topAnchor.constraint(equalTo: navBar.topAnchor).isActive = true
+        navStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         navStackView.bottomAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
         navStackView.leftAnchor.constraint(equalTo: navBar.leftAnchor).isActive = true
         navStackView.widthAnchor.constraint(equalTo: navBar.widthAnchor).isActive = true
-        navStackView.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.3).isActive = true
         
         tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        
+        snacksLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        snacksLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
     }
     
     func setStackView() {
@@ -122,6 +135,8 @@ class AnimationViewController: UIViewController {
                 self.plusBtn.transform = CGAffineTransform(rotationAngle: .pi/4)
                 self.view.layoutIfNeeded()
                 self.tableView.contentInset = UIEdgeInsets(top: self.navBar.bounds.height + 15, left: 0, bottom: 0, right: 0)
+                self.snacksLabel.text = "Add a SNACK"
+                self.snacksLabel.transform = CGAffineTransform(translationX: 0, y: 40)
             }, completion: nil)
 //            navBarStatus = true
         } else {
@@ -131,6 +146,8 @@ class AnimationViewController: UIViewController {
                 self.plusBtn.transform = .identity
                 self.view.layoutIfNeeded()
                 self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                self.snacksLabel.text = "SNACKS"
+                self.snacksLabel.transform = .identity
             }, completion: nil)
             
         }
@@ -140,7 +157,6 @@ class AnimationViewController: UIViewController {
         print("plus icon pressed")
         animation()
     }
-
 }
 
 extension AnimationViewController: UITableViewDataSource, UITableViewDelegate {
