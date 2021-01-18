@@ -125,7 +125,7 @@ class AnimationViewController: UIViewController {
         }
     }
     
-    func animation() {
+    @objc func pushBtn(_ sender: UIButton) {
         if navStackView.isHidden {
             UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.1, initialSpringVelocity: 2, options: .curveEaseInOut, animations: {
                 self.navStackView.isHidden = false
@@ -151,11 +151,6 @@ class AnimationViewController: UIViewController {
             }, completion: nil)
             
         }
-    }
-    
-    @objc func pushBtn(_ sender: UIButton) {
-        print("plus icon pressed")
-        animation()
     }
 }
 
