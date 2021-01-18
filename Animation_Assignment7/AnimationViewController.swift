@@ -72,11 +72,11 @@ class AnimationViewController: UIViewController {
         plusBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5).isActive = true
         plusBtn.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         
-        navStackView.topAnchor.constraint(equalTo: navBar.topAnchor).isActive = true
+//        navStackView.topAnchor.constraint(equalTo: navBar.topAnchor).isActive = true
         navStackView.bottomAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
         navStackView.leftAnchor.constraint(equalTo: navBar.leftAnchor).isActive = true
         navStackView.widthAnchor.constraint(equalTo: navBar.widthAnchor).isActive = true
-        navStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        navStackView.heightAnchor.constraint(equalTo: navBar.heightAnchor, multiplier: 0.3).isActive = true
         
         tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
